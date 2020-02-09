@@ -1,24 +1,28 @@
 const express = require('express');
 const request = require('request');
-const electionsRouter = express.Router();
 
-const EXTERNAL_URL = 'https://api.turbovote.org/elections/upcoming?district-divisions=';
+const EXTERNAL_URL = 'https://api.turbovote.org/elections/upcoming?district-divisions=ocd-division/country:us';
 
-function buildOcdId(state) {
-  return `ocd-division/country:us/state:${state}`;
+function buildApiUrl(state, city) {
+  state = state.toLowerCase();
+  let url = `${EXTERNAL_URL}/state:${state}`;
+  if(city) {
+    city = city.toLowerCase().replace(' ', '_');
+    url = `${url}/place:${city}`;
+  }
+  return url;
 }
 
 function electionSearch(req, res, next) {
   let options = {
-    uri: EXTERNAL_URL + buildOcdId(req.body.state.toLowerCase()),
-    headers: {'accept': 'application/json'}
-  };
+    uri: buildApiUrl(req.body.state, req.body.city),
+    headers: {'accept' : 'application/json'}
+  }
+  console.log(options.uri);
+
   request(options, (err, response, body) => {
     const data = JSON.parse(body);
-    let elections = [];
-    elections.push(data[0].description);
-    console.log(data[0].description);
-    res.render('elections', {elections: elections});
+    res.render('elections', {elections: data});
   })
 }
 
