@@ -26,4 +26,7 @@ function electionSearch(req, res, next) {
   })
 }
 
-module.exports = electionSearch;
+module.exports = {
+  electionSearch,
+  buildApiUrl
+}
