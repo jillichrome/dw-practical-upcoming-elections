@@ -1,4 +1,3 @@
-const express = require('express');
 const request = require('request');
 
 const EXTERNAL_URL = 'https://api.turbovote.org/elections/upcoming?district-divisions=ocd-division/country:us';
@@ -18,7 +17,6 @@ function electionSearch(req, res, next) {
     uri: buildApiUrl(req.body.state, req.body.city),
     headers: {'accept' : 'application/json'}
   }
-  console.log(options.uri);
 
   request(options, (err, response, body) => {
     const data = JSON.parse(body);
@@ -26,7 +24,4 @@ function electionSearch(req, res, next) {
   })
 }
 
-module.exports = {
-  electionSearch,
-  buildApiUrl
-}
+module.exports = { electionSearch, buildApiUrl};

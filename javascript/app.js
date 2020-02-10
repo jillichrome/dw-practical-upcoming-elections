@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var electionSearch = require('./routes/elections');
+var {electionSearch} = require('./routes/elections');
 
 var app = express();
 

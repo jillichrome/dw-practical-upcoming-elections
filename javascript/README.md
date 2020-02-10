@@ -22,5 +22,5 @@ This is a server-side web application written in JavaScript with
 
 In elections.js, the api url is built to match the OCD-ID corresponding to
 the user's form inputs. The url is used for a GET request to Democracy
-Works Elections API. Any upcoming elections and corresponding dates are then
-displayed on the page with a POST call.
+Works Elections API. Any upcoming elections are then displayed on the page
+with a POST call.
